@@ -29,7 +29,6 @@ function onOrientationChange(e) {
         top = top + 20
     }
 
-
     exec(success, error, "CordovaPdfViewer", "redim", [top, rect.left, rect.width, rect.height]);
 }
 
@@ -88,7 +87,7 @@ exports.redim = function(success, error, top, left, width, height) {
     console.log('src=' + documentSrc);
     console.log('src=' + documentTitle);
     console.log('now showing again');
-    pdfViewer.show(viewerId, documentSrc, documentTitle, success, error); 
+    pdfViewer.show(viewerId, documentSrc, documentTitle, success, error, iosVersion); 
     //exec(success, error, "CordovaPdfViewer", "redim", [top, left, width, height]);
 };
 
