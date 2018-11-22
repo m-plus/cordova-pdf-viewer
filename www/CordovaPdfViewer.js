@@ -6,6 +6,7 @@ window.addEventListener('orientationchange', onOrientationChange);
 var viewerElement;
 var documentSrc;
 var documentTitle;
+var iosVersion;
 var isCurrentlyViewing = false;
 
 function onOrientationChange(e) {
@@ -23,11 +24,17 @@ function onOrientationChange(e) {
         console.log('onOrientationChange error');
     };
 
-    exec(success, error, "CordovaPdfViewer", "redim", [rect.top + 20, rect.left, rect.width, rect.height]);
+    var top = rect.top
+    if (iosVersion > 10.4) {
+        top = top + 20
+    }
+
+
+    exec(success, error, "CordovaPdfViewer", "redim", [top, rect.left, rect.width, rect.height]);
 }
 
 
-exports.show = function(_viewerId, src, _title, success, error) {
+exports.show = function(_viewerId, src, _title, success, error, iosVersion="") {
     if (isCurrentlyViewing) {
         exec(function() {}, function() {}, "CordovaPdfViewer", "dismiss");
     }
@@ -35,6 +42,7 @@ exports.show = function(_viewerId, src, _title, success, error) {
     viewerId = _viewerId;
     documentSrc = src;
     documentTitle = _title;
+    iosVersion = iosVersion
     var extension = src.split('.').pop();
 
     console.log('Source ' + src);
@@ -63,14 +71,18 @@ exports.show = function(_viewerId, src, _title, success, error) {
     isCurrentlyViewing = true;
     viewerElement = elem;
 
-    exec(success, error, "CordovaPdfViewer", "show", [src, documentTitle, rect.top + 20, rect.left, rect.width, rect.height]);
+    var top = rect.top
+    if (iosVersion > 10.4) {
+        top = top + 20
+    }
+
+    exec(success, error, "CordovaPdfViewer", "show", [src, documentTitle, top, rect.left, rect.width, rect.height]);
 };
 
 exports.redim = function(success, error, top, left, width, height) {
     if (!isCurrentlyViewing) {
         return;
     }
-
     console.log('Redim new');
     console.log(viewerId);
     console.log('src=' + documentSrc);
