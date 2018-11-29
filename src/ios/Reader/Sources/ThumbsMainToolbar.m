@@ -36,7 +36,7 @@
 #define BUTTON_SPACE 8.0f
 #define BUTTON_HEIGHT 30.0f
 
-#define BUTTON_FONT_SIZE 15.0f
+#define BUTTON_FONT_SIZE 24.0f
 #define TEXT_BUTTON_PADDING 24.0f
 
 #define SHOW_CONTROL_WIDTH 78.0f
@@ -73,12 +73,13 @@
 
 		const CGFloat buttonSpacing = BUTTON_SPACE; //const CGFloat iconButtonWidth = ICON_BUTTON_WIDTH;
 
-		CGFloat titleX = BUTTON_X; CGFloat titleWidth = (viewWidth - (titleX + titleX));
+		CGFloat titleX = BUTTON_X; 
+		CGFloat titleWidth = (viewWidth - (titleX + titleX));
 
 		CGFloat leftButtonX = BUTTON_X; // Left-side button start X position
 
 		UIFont *doneButtonFont = [UIFont systemFontOfSize:BUTTON_FONT_SIZE];
-		NSString *doneButtonText = NSLocalizedString(@"Done", @"button text");
+		NSString *doneButtonText = NSLocalizedString(@"←", @"button text");
 		CGSize doneButtonSize = [doneButtonText sizeWithAttributes:@{NSFontAttributeName : doneButtonFont}];
 		CGFloat doneButtonWidth = (ceil(doneButtonSize.width) + TEXT_BUTTON_PADDING);
 
@@ -96,7 +97,8 @@
 
 		[self addSubview:doneButton]; //leftButtonX += (doneButtonWidth + buttonSpacing);
 
-		titleX += (doneButtonWidth + buttonSpacing); titleWidth -= (doneButtonWidth + buttonSpacing);
+		titleX += (doneButtonWidth + buttonSpacing); 
+		titleWidth -= (doneButtonWidth + buttonSpacing);
 
 #if (READER_BOOKMARKS == TRUE) // Option
 
