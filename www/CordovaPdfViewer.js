@@ -1,6 +1,6 @@
 var exec = require('cordova/exec');
 
-console.log('-------- INIT -----------');
+// console.log('-------- INIT -----------');
 window.addEventListener('orientationchange', onOrientationChange);
 
 var viewerElement;
@@ -25,7 +25,7 @@ function onOrientationChange(e) {
     };
 
     var top = rect.top
-    if (iosVersion > 10.4) {
+    if (iosVersion.toString() > "10.4") {
         top = top + 20
     }
 
@@ -47,7 +47,7 @@ exports.show = function(_viewerId, src, _title, success, error, _iosVersion="") 
     var extension = src.split('.').pop();
 
     console.log('Source ' + src);
-    console.log('extension ' + extension);
+    // console.log('extension ' + extension);
 
     if (extension != 'pdf') {
         msg = 'File extension must be pdf';
@@ -63,20 +63,15 @@ exports.show = function(_viewerId, src, _title, success, error, _iosVersion="") 
         error(msg);
         return;
     }
-
-    console.log('src=' + src);
-
     var rect = elem.getBoundingClientRect();
-    console.log(rect);
 
     isCurrentlyViewing = true;
     viewerElement = elem;
 
     var top = rect.top
-    if (iosVersion > 10.4) {
-        top = top + 20
-    }
-
+    if (iosVersion.toString() > "10.4") {
+        top = top + 20 
+    } 
     exec(success, error, "CordovaPdfViewer", "show", [src, documentTitle, top, rect.left, rect.width, rect.height]);
 };
 
@@ -84,19 +79,17 @@ exports.redim = function(success, error, top, left, width, height) {
     if (!isCurrentlyViewing) {
         return;
     }
-    console.log('Redim new');
-    console.log(viewerId);
-    console.log('src=' + documentSrc);
-    console.log('src=' + documentTitle);
-    console.log('iosVersion=' + iosVersion);
-    console.log('now showing again');
+    // console.log('Redim new');
+    // console.log(viewerId);
+    // console.log('src=' + documentSrc);
+    // console.log('src=' + documentTitle);
+    // console.log('iosVersion=' + iosVersion);
+    // console.log('now showing again');
     pdfViewer.show(viewerId, documentSrc, documentTitle, success, error, iosVersion); 
     //exec(success, error, "CordovaPdfViewer", "redim", [top, left, width, height]);
 };
 
 exports.autoRedim = function(_iosVersion) {
-    console.log("kskskskskssk" + _iosVersion)
-    console.log('autoRedim');
     var success = function() {};
     var error   = function() {};
     iosVersion = _iosVersion
@@ -104,7 +97,7 @@ exports.autoRedim = function(_iosVersion) {
 };
 
 exports.dismiss = function(success, error) {
-    console.log('Dismiss');
+    // console.log('Dismiss');
     isCurrentlyViewing = false;
     exec(success, error, "CordovaPdfViewer", "dismiss");
 };
